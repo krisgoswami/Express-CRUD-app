@@ -9,8 +9,9 @@ app.use(bodyParser.json());
 
 //database connection config
 const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
+    host: '192.168.31.30',
+    port: '3306',
+    user: 'Kris-Desktop',
     password: 'admin',
     database: 'sampledata'
 });
@@ -26,7 +27,7 @@ connection.connect((err) => {
 
 // GET -> get all items from the database
 app.get('/', (req, res) => {
-    connection.query('SELECT * FROM mock_data', (err, results) => {
+    connection.query('SELECT * FROM thesisdb', (err, results) => {
         if (err) {
             console.error("Error fetching items", err);
             res.status(500).json({ error: 'Server error' });
@@ -41,7 +42,7 @@ app.get('/', (req, res) => {
 app.get('/:id', (req, res) => {
     const itemId = parseInt(req.params.id);
 
-    connection.query('SELECT * FROM mock_data WHERE id = ?',[itemId], (err, results) => {
+    connection.query('SELECT * FROM thesisdb WHERE id = ?',[itemId], (err, results) => {
         if(err){
             console.error("Error fetching item", err);
             res.status(500).json({error: 'Server Error'});
@@ -59,7 +60,7 @@ app.get('/:id', (req, res) => {
 app.post('/', (req, res) => {
     const newItem = req.body;
 
-    connection.query('INSERT INTO mock_data SET ?', newItem, (err, result) => {
+    connection.query('INSERT INTO thesisdb SET ?', newItem, (err, result) => {
         if (err) {
             console.error("Error creating item", err);
             res.status(500).json({error: 'Server Error'});
@@ -77,9 +78,9 @@ app.put('/:id', (req, res) => {
     const itemId = parseInt(req.params.id);
     const updateItem = req.body;
 
-    connection.query('UPDATE mock_data SET ? WHERE id = ?', [updateItem, itemId], (err, result) => {
+    connection.query('UPDATE thesisdb SET ? WHERE id = ?', [updateItem, itemId], (err, result) => {
         if (err){
-            console.error("Error updateing item", err);
+            console.error("Error updating item", err);
             res.status(500).json({error: 'Server error'});
         }
         else if (result.affectedRows > 0) {
@@ -96,7 +97,7 @@ app.put('/:id', (req, res) => {
 app.delete('/:id', (req,res) => {
     const itemId = parseInt(req.params.id);
 
-    connection.query('DELETE FROM mock_data WHERE id = ?', [itemId], (err,result)=>{
+    connection.query('DELETE FROM thesisdb WHERE id = ?', [itemId], (err,result)=>{
         if (err){
             console.error('Error deleting item', err);
             res.status(500).json({error: 'Server error'});
