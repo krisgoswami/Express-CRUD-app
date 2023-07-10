@@ -9,7 +9,6 @@ const connection = mysql.createConnection({
     database: 'sampledata'
 });
 
-
 // connection to the database
 connection.connect((err) => {
     if (err) {
