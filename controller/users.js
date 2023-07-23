@@ -31,7 +31,7 @@ export const getUsers = (req, res) => {
     });
 }
 
-//GET /:id - get a single item
+//GET /:id - get a single user
 export const getUserById = (req, res) => {
     const itemId = parseInt(req.params.id);
 
@@ -87,7 +87,7 @@ export const updateUser = (req, res) => {
     });
 }
 
-//DELETE -> delete item
+//DELETE -> delete user
 export const deleteUser = (req, res) => {
     const itemId = parseInt(req.params.id);
 
