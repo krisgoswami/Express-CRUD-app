@@ -17,7 +17,7 @@ connection.connect((err) => {
     console.log("Connectend to the database");
 });
 
-// GET -> get all items from the database
+// GET -> get all users from the database
 export const getUsers = (req, res) => {
 
     connection.query('SELECT * FROM thesisdb', (err, results) => {
