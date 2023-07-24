@@ -33,18 +33,18 @@ export const getUsers = (req, res) => {
 
 //GET /:id - get a single user
 export const getUserById = (req, res) => {
-    const itemId = parseInt(req.params.id);
+    const userId = parseInt(req.params.id);
 
-    connection.query('SELECT * FROM thesisdb WHERE id = ?', [itemId], (err, results) => {
+    connection.query('SELECT * FROM thesisdb WHERE id = ?', [userId], (err, results) => {
         if (err) {
-            console.error("Error fetching item", err);
+            console.error("Error fetching user", err);
             res.status(500).json({ error: 'Server Error' });
         }
         else if (results.length > 0) {
             res.json(results[0]);
         }
         else {
-            res.status(404).json({ error: 'Item not found' });
+            res.status(404).json({ error: 'User not found' });
         }
     });
 }
@@ -52,16 +52,16 @@ export const getUserById = (req, res) => {
 // POST -> create a new user
 export const createUser = (req, res) => {
 
-    const newItem = req.body;
+    const newUser = req.body;
 
-    connection.query('INSERT INTO thesisdb SET ?', newItem, (err, result) => {
+    connection.query('INSERT INTO thesisdb SET ?', newUser, (err, result) => {
         if (err) {
             console.error("Error creating item", err);
             res.status(500).json({ error: 'Server Error' });
         }
         else {
-            newItem.id = result.insertId;
-            res.status(201).json(newItem);
+            newUser.id = result.insertId;
+            res.status(201).json(newUser);
             console.log(`User successfully added to the database`);
         }
     });
