@@ -69,29 +69,29 @@ export const createUser = (req, res) => {
 
 //PUT -> /:id - UPDATE user
 export const updateUser = (req, res) => {
-    const itemId = parseInt(req.params.id);
-    const updateItem = req.body;
+    const userId = parseInt(req.params.id);
+    const updateUser = req.body;
 
-    connection.query('UPDATE thesisdb SET ? WHERE id = ?', [updateItem, itemId], (err, result) => {
+    connection.query('UPDATE thesisdb SET ? WHERE id = ?', [updateUser, userId], (err, result) => {
         if (err) {
-            console.error("Error updating item", err);
+            console.error("Error updating user", err);
             res.status(500).json({ error: 'Server error' });
         }
         else if (result.affectedRows > 0) {
-            res.json(updateItem);
+            res.json(updateUser);
             console.log('User updated successfully.')
         }
         else {
-            res.status(404).json({ error: 'Item not found' });
+            res.status(404).json({ error: 'User not found' });
         }
     });
 }
 
 //DELETE -> delete user
 export const deleteUser = (req, res) => {
-    const itemId = parseInt(req.params.id);
+    const userId = parseInt(req.params.id);
 
-    connection.query('DELETE FROM thesisdb WHERE id = ?', [itemId], (err, result) => {
+    connection.query('DELETE FROM thesisdb WHERE id = ?', [userId], (err, result) => {
         if (err) {
             console.error('Error deleting item', err);
             res.status(500).json({ error: 'Server error' });
